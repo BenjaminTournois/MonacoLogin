@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ArtifactsController!{% endblock %}
+
+{% block body %}
+
+{% if b == null %}
+No artifacts to display for this Tracker.
+{% else %}
+<h1>Select an Artifact</h1>
+{{form(form)}}
+{% endif %}
+
+
+{% endblock %}
