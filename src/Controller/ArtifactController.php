@@ -25,7 +25,7 @@ class ArtifactController extends AbstractController
     public function index(Request $request)
     {
         $a = $request->request->get('form');
-        $b = getArtifact($a['Artifact']);    
+        $b = getArtifact($a['Artifacts']);    
         
         return $this->render('artifact/index.html.twig', [
             'controller_name' => 'ArtifactController',
