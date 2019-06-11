@@ -15,7 +15,9 @@ use Symfony\Component\HttpFoundation\Response;
 function getAllTrackers(){
     $client = new Client();
     $res = $client->request('GET', 'https://agile-team.agencecdigital.com/api/projects/102/trackers', [
-        'auth' => ['benjamin', 'tournois']]);
+        'headers' => array(
+            'X-Auth-AccessKey' => 'tlp-k1-5.d1d0dd5a9b907c5b730caaf616f9715c43fd53cbcbd7cd8191f238d74db588d8'
+        )]);
     $a = json_decode($res->getBody());
     foreach ($a as $key) {
         $b[$key->label] = $key->id;
