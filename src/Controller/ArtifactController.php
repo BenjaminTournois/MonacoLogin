@@ -4,6 +4,9 @@ namespace App\Controller;
 use GuzzleHttp\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 
 function getArtifact($artifactId){
@@ -16,6 +19,8 @@ function getArtifact($artifactId){
     $b["Summary"] = $a->values[2]->value;
     $b["Submited_by"] = $a->submitted_by_user->real_name;
     $b["Artifact_Id"] = $a->id;
+    $b["Field"] = $a->values[2]->field_id;
+    $b["Label"] = $a->values[2]->value;
     return $b;
 }
 
@@ -27,13 +32,28 @@ class ArtifactController extends AbstractController
     public function index(Request $request)
     {
         $a = $request->request->get('form');
-        $b = getArtifact($a['Artifacts']);    
-        
+        $b = getArtifact($a['Artifacts']); 
+
+        $form = $this->createFormBuilder()
+        ->setAction($this->generateUrl('create_artifact'))
+        ->setMethod('POST')
+        ->add('Comment', TextareaType::class, [
+            'attr' => ['class' => 'tinymce']])
+        ->add('ArtifactId', HiddenType::class, [
+                'data' => $b["Artifact_Id"]])
+        ->add('FieldID', HiddenType::class, [
+            'data' => $b["Field"]])
+        ->add('Label', HiddenType::class, [
+            'data' => $b["Label"]])
+        ->add('save', SubmitType::class, ['label' => 'Submit'])
+        ->getForm();
+
         return $this->render('artifact/index.html.twig', [
             'controller_name' => 'ArtifactController',
             'summary' => $b["Summary"],
             'submited_by' => $b["Submited_by"],
-            'artifact_id' => $b["Artifact_Id"]
+            'artifact_id' => $b["Artifact_Id"],             
+            'form' => $form->createView(),
         ]);
     }
 }

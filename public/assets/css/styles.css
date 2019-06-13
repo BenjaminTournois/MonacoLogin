@@ -11,3 +11,10 @@ header#header h1 {text-align: center;color: #5cb85c;}
 
 /*footer*/
 footer#footer{margin-top: 20px;padding: 10px;}
+
+.artifact {
+    background-color: #007bff;
+    border-radius: 5px;
+    color : white;
+    text-align: center;
+}

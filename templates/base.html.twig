@@ -33,10 +33,7 @@
                     </li>
                     {% if is_granted('ROLE_USER') %}
                         <li class="nav-item {% if mainNavMember is defined %}active{% endif %}">
-                            <a class="nav-link" href="{{path('app_member_index')}}">Trackers List</a>
-                        </li>
-                        <li class="nav-item {% if mainNavMember is defined %}active{% endif %}">
-                            <a class="nav-link" href="{{path('create_artifact')}}">Add Tracker</a>
+                            <a class="nav-link" href="{{path('app_member_index')}}">Trackers</a>
                         </li>
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}

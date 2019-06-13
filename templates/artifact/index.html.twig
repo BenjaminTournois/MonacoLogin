@@ -3,9 +3,13 @@
 {% block title %}Hello ArtifactController!{% endblock %}
 
 {% block body %}
+
+<div class="artifact">
 <h1>Artifact {{artifact_id}}</h1>
-<h2>Summary</h2>
+</div>
 {{ summary }}
-<h3>Submited by :</h3>
-{{ submited_by }}
+<p>Submited by : {{ submited_by }}</p>
+
+{{form(form)}}
+
 {% endblock %}
