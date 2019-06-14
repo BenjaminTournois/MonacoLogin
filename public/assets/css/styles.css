@@ -18,3 +18,11 @@ footer#footer{margin-top: 20px;padding: 10px;}
     color : white;
     text-align: center;
 }
+
+.comment {
+    background-color: #5cb85c;
+    margin-top: 50px;
+    border-radius: 5px;
+    color : white;
+    text-align: center;
+}

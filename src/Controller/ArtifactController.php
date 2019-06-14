@@ -24,6 +24,22 @@ function getArtifact($artifactId){
     return $b;
 }
 
+function getAllComment($artifactId){
+    $client = new Client();
+    $res = $client->request('GET', 'https://agile-team.agencecdigital.com/api/artifacts/'.$artifactId.'/changesets?fields=comments&limit=20', [
+        'headers' => array(
+            'X-Auth-AccessKey' => 'tlp-k1-5.d1d0dd5a9b907c5b730caaf616f9715c43fd53cbcbd7cd8191f238d74db588d8'
+        )]);
+    $a = json_decode($res->getBody());
+    if (!empty($a)){
+        foreach ($a as $key) {
+            $b[$key->id] = $key->last_comment->body;
+        }
+        return($b);
+    }
+        return null;
+}
+
 class ArtifactController extends AbstractController
 {
     /**
@@ -33,6 +49,7 @@ class ArtifactController extends AbstractController
     {
         $a = $request->request->get('form');
         $b = getArtifact($a['Artifacts']); 
+        $c = getAllComment($a['Artifacts']);
 
         $form = $this->createFormBuilder()
         ->setAction($this->generateUrl('create_artifact'))
@@ -54,6 +71,7 @@ class ArtifactController extends AbstractController
             'submited_by' => $b["Submited_by"],
             'artifact_id' => $b["Artifact_Id"],             
             'form' => $form->createView(),
+            'comments' => $c,
         ]);
     }
 }

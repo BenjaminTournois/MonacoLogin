@@ -8,8 +8,15 @@
 <h1>Artifact {{artifact_id}}</h1>
 </div>
 {{ summary }}
-<p>Submited by : {{ submited_by }}</p>
+    <p>Submited by : {{ submited_by }}</p>
 
 {{form(form)}}
+
+<div class="comment">
+<h2>Comments</h2>
+</div>
+{% for comment in comments %}
+    <p style="padding-bottom:10px;">{{comment}}<br></p>
+{% endfor %}
 
 {% endblock %}
